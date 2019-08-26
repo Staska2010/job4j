@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 
 public class FindLoopTest {
     @Test
-    public void whenArrayHas5Then0() {
+    public void whenArrayHasLengh5Then0() {
         FindLoop find = new FindLoop();
         int[] input = new int[] {5, 10, 3};
         int value = 5;
@@ -16,12 +16,14 @@ public class FindLoopTest {
     }
 
     @Test
-    public void whenArrayDoesntHaveElement() {
+    public void whenFind3() {
         FindLoop find = new FindLoop();
-        int[] input = new int[] {0, 4, 6, 12};
-        int value = 7;
-        int result = find.indexOf(input, value);
-        int expect = -1;
+        int[] input = new int[] {5, 2, 10, 2, 4};
+        int value = 2;
+        int start = 2;
+        int finish = 4;
+        int result = find.indexOf(input, value, start, finish);
+        int expect = 3;
         assertThat(result, is(expect));
     }
 }

@@ -9,11 +9,11 @@ public class Converter {
         return value / 65;
     }
 
-    public static int DollarToRuble(int value) {
+    public static int dollarToRuble(int value) {
         return value * 65;
     }
 
-    public static int EuroToRuble(int value) {
+    public static int euroToRuble(int value) {
         return value * 70;
     }
 
@@ -22,9 +22,9 @@ public class Converter {
         System.out.println("140 rubles are " + euro + " euro.");
         int dollar = rubleToDollar(140);
         System.out.println("140 rubles are " + dollar + " dollar.");
-        int ruble = EuroToRuble(10);
+        int ruble = euroToRuble(10);
         System.out.println("10 euros are " + ruble + " rubles.");
-        ruble = DollarToRuble(10);
+        ruble = dollarToRuble(10);
         System.out.println("10 dollars are " + ruble + " rubles.");
 
         int in = 140;

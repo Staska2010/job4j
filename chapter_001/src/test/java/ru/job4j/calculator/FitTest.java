@@ -9,6 +9,6 @@ public class FitTest {
         double in = 176;
         double expected = 87.4;
         double out = Fit.manWeight(176);
-        Assert.assertEquals(expected,out, 0.01);
+        Assert.assertEquals(expected, out, 0.01);
     }
 }

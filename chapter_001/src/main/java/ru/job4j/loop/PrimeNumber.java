@@ -12,7 +12,9 @@ public class PrimeNumber {
                     break;
                 }
             }
-            if (!notPrime) count++;
+            if (!notPrime) {
+                count++;
+            }
         }
         return count;
     }

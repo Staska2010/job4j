@@ -6,7 +6,6 @@ import java.util.Random;
 public class Tracker {
     private final Item[] items = new Item[100];
     private int position = 0;
-    private int positionOfSearch = 0;
 
     public Item add(Item item) {
         if (position < items.length) {
@@ -36,10 +35,9 @@ public class Tracker {
 
     public Item findById(String id) {
         Item result = null;
-        for (int i = 0; i < this.position; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 result = items[i];
-                this.positionOfSearch = i;
             }
         }
         return result;
@@ -47,21 +45,24 @@ public class Tracker {
 
     public boolean replace(String id, Item item) {
         boolean result = false;
-        Item tmp = findById(id);
-        if (tmp != null) {
-            this.items[positionOfSearch] = item;
-            result = true;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getId().equals(id)) {
+                this.items[i] = item;
+                result = true;
+            }
         }
         return result;
     }
 
     public boolean delete(String id) {
         boolean result = false;
-        if (findById(id) != null) {
-            if (position - 1 - positionOfSearch >= 0) {
-                System.arraycopy(items, positionOfSearch + 1, items, positionOfSearch, position - 1 - positionOfSearch);
-                position--;
-                result = true;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getId().equals(id)) {
+                if (position - 1 - i >= 0) {
+                    System.arraycopy(items, i + 1, items, i, position - 1 - i);
+                    position--;
+                    result = true;
+                }
             }
         }
         return result;

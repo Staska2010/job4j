@@ -8,7 +8,7 @@ public class Tracker {
     private int position = 0;
 
     public Item add(Item item) {
-        if (position < items.length) {
+        if (position < items.length - 1) {
             item.setId(this.generateId());
             this.items[this.position++] = item;
             return item;
@@ -22,32 +22,16 @@ public class Tracker {
         return String.valueOf(rnd.nextLong() + System.currentTimeMillis());
     }
 
-    public Item[] findByName(String name) {
-        Item[] result = new Item[position];
-        int numberOfMatches = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (items[i].getName().equals(name)) {
-                result[numberOfMatches++] = items[i];
-            }
-        }
-        return Arrays.copyOf(result, numberOfMatches);
-    }
-
-    public Item findById(String id) {
-        Item result = null;
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                result = items[i];
-            }
-        }
-        return result;
+    public Item[] findAll() {
+        return Arrays.copyOf(items, position);
     }
 
     public boolean replace(String id, Item item) {
         boolean result = false;
         for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
-                this.items[i] = item;
+                items[i].setName(item.getName());
+                items[i].setDesc(item.getDesc());
                 result = true;
             }
         }
@@ -68,7 +52,24 @@ public class Tracker {
         return result;
     }
 
-    public Item[] findAll() {
-        return Arrays.copyOf(items, position);
+    public Item findById(String id) {
+        Item result = null;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getId().equals(id)) {
+                result = items[i];
+            }
+        }
+        return result;
+    }
+
+    public Item[] findByName(String name) {
+        Item[] result = new Item[position];
+        int numberOfMatches = 0;
+        for (int i = 0; i < this.position; i++) {
+            if (items[i].getName().equals(name)) {
+                result[numberOfMatches++] = items[i];
+            }
+        }
+        return Arrays.copyOf(result, numberOfMatches);
     }
 }

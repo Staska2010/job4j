@@ -8,6 +8,10 @@ public class Profession {
     private String education;
     private Date birthDate;
 
+  public Profession() {
+
+  }
+
     public Profession(String surname, String name) {
         this.surname = surname;
         this.name = name;

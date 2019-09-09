@@ -1,13 +1,13 @@
 package ru.job4j.tracker;
 
 public class StartUI {
-    private static final int ADD      = 0;
-    private static final int SHOW     = 1;
-    private static final int EDIT     = 2;
-    private static final int DEL      = 3;
-    private static final int FINDID   = 4;
+    private static final int ADD = 0;
+    private static final int SHOW = 1;
+    private static final int EDIT = 2;
+    private static final int DEL = 3;
+    private static final int FINDID = 4;
     private static final int FINDNAME = 5;
-    private static final int EXIT     = 6;
+    private static final int EXIT = 6;
 
     private final Input input;
     private final Tracker tracker;
@@ -84,7 +84,7 @@ public class StartUI {
         System.out.println("------------------- Заявки ------------------------");
         for (Item iterator : tracker.findAll()) {
             System.out.println("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
-                              + iterator.getDesc());
+                    + iterator.getDesc());
         }
         System.out.println("---------------------------------------------------");
     }
@@ -95,8 +95,12 @@ public class StartUI {
         String name = input.ask("Введите новое название заявки :");
         String desc = input.ask("Введите новое описание :");
         Item item = new Item(name, desc);
-        tracker.replace(id, item);
-        System.out.println("--------- Измененная заявка с названием: " + item.getName() + "-----");
+        if (tracker.replace(id, item)) {
+            System.out.println("---------- Заявка успешна изменена-------------");
+        } else {
+            System.out.println("------- Заявка с ID:" + item.getName() + " не найдена-------");
+        }
+
     }
 
     private void deleteItem() {

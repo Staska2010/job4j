@@ -8,14 +8,8 @@ public class Profession {
     private String education;
     private Date birthDate;
 
-<<<<<<< HEAD
     public Profession() {
     }
-=======
-  public Profession() {
-
-  }
->>>>>>> task_165095
 
     public Profession(String surname, String name) {
         this.surname = surname;

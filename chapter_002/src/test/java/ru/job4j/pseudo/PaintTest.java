@@ -1,5 +1,7 @@
 package ru.job4j.pseudo;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
@@ -9,6 +11,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class PaintTest {
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(out));
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(stdout);
+    }
+
     @Test
     public void whenDrawSquare() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();

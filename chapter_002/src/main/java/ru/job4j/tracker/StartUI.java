@@ -1,13 +1,13 @@
 package ru.job4j.tracker;
 
 public class StartUI {
-    private static final int ADD =      0;
-    private static final int SHOW =     1;
-    private static final int EDIT =     2;
-    private static final int DEL =      3;
-    private static final int FINDID =   4;
+    private static final int ADD = 0;
+    private static final int SHOW = 1;
+    private static final int EDIT = 2;
+    private static final int DEL = 3;
+    private static final int FINDID = 4;
     private static final int FINDNAME = 5;
-    private static final int EXIT =     6;
+    private static final int EXIT = 6;
 
     private final Input input;
     private final Tracker tracker;
@@ -134,6 +134,7 @@ public class StartUI {
         if (items.length == 0) {
             System.out.println("---------- Заявки с именем: " + name + " не найдены----");
         } else {
+            System.out.println("------------------- Заявки ------------------------");
             for (Item iterator : items) {
                 System.out.println("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
                         + iterator.getDesc());

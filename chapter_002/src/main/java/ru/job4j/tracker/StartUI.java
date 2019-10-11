@@ -27,7 +27,7 @@ public class StartUI {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
-            int answer = Integer.parseInt(input.ask("Введите пункт меню : "));
+            int answer = input.askInt("Введите пункт меню : ", 7);
             switch (answer) {
                 case ADD:
                     createItem();
@@ -69,8 +69,8 @@ public class StartUI {
 
     private void createItem() {
         System.out.println("------------ Добавление новой заявки --------------");
-        String name = input.ask("Введите имя заявки :");
-        String desc = input.ask("Введите описание заявки :");
+        String name = input.askStr("Введите имя заявки :");
+        String desc = input.askStr("Введите описание заявки :");
         Item item = new Item(name, desc);
         if (tracker.add(item) != null) {
             System.out.println("--------- Новая заявка с getId : " + item.getId() + "-----------");
@@ -91,9 +91,9 @@ public class StartUI {
 
     private void editItem() {
         System.out.println("-------------- Редактирование заявки --------------");
-        String id = input.ask("Введите ID редактируемой заявки :");
-        String name = input.ask("Введите новое название заявки :");
-        String desc = input.ask("Введите новое описание :");
+        String id = input.askStr("Введите ID редактируемой заявки :");
+        String name = input.askStr("Введите новое название заявки :");
+        String desc = input.askStr("Введите новое описание :");
         Item item = new Item(name, desc);
         if (tracker.replace(id, item)) {
             System.out.println("---------- Заявка успешна изменена-------------");
@@ -105,7 +105,7 @@ public class StartUI {
 
     private void deleteItem() {
         System.out.println("---------------- Удаление заявки ------------------");
-        String id = input.ask("Введите ID заявки :");
+        String id = input.askStr("Введите ID заявки :");
         if (tracker.delete(id)) {
             System.out.println("---------Заявка с ID: " + id + " удалена-------");
             showAllItems();
@@ -116,7 +116,7 @@ public class StartUI {
 
     private void findItemById() {
         System.out.println("--------------- Найти заявку по ID ----------------");
-        String id = input.ask("Введите ID заявки :");
+        String id = input.askStr("Введите ID заявки :");
         Item item = tracker.findById(id);
         if (item != null) {
             System.out.println("------------ Заявка: ID" + item.getId() + ", name:  " + item.getName()
@@ -129,7 +129,7 @@ public class StartUI {
 
     private void findItemsByName() {
         System.out.println("------------ Найти заявки по названию --------------");
-        String name = this.input.ask("Введите имя заявки :");
+        String name = this.input.askStr("Введите имя заявки :");
         Item[] items = tracker.findByName(name);
         if (items.length == 0) {
             System.out.println("---------- Заявки с именем: " + name + " не найдены----");
@@ -149,6 +149,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

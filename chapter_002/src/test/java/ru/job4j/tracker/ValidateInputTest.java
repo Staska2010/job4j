@@ -17,7 +17,7 @@ public class ValidateInputTest {
     public void whenUserEnterNonDigitDataThenRepeatInput() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        ValidateInput input = new ValidateInput(new StubInput(new String[]{ "asf", "1"}));
+        ValidateInput input = new ValidateInput(new StubInput(new String[]{"asf", "1"}));
         input.askInt("Enter", 2);
         String trackerOutput = out.toString();
         String expected = new StringBuilder("Повторите ввод").append(System.lineSeparator()).toString();
@@ -29,7 +29,7 @@ public class ValidateInputTest {
     public void whenUserEnterWrongNumberThenChooseValidMenu() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        ValidateInput input = new ValidateInput(new StubInput(new String[]{ "5", "1"}));
+        ValidateInput input = new ValidateInput(new StubInput(new String[]{"5", "1"}));
         input.askInt("Enter", 2);
         String trackerOutput = out.toString();
         String expected = new StringBuilder("Выберите правильный пункт меню").append(System.lineSeparator()).toString();

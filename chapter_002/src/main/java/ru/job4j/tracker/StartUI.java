@@ -9,139 +9,30 @@ public class StartUI {
     private static final int FINDNAME = 5;
     private static final int EXIT = 6;
 
-    private final Input input;
-    private final Tracker tracker;
-
     /**
      * Конструтор инициализирующий поля.
      *
      * @param input   ввод данных.
      * @param tracker хранилище заявок.
      */
-    public StartUI(Input input, Tracker tracker) {
-        this.input = input;
-        this.tracker = tracker;
-    }
 
-    public void init() {
-        boolean exit = false;
-        while (!exit) {
-            this.showMenu();
-            int answer = input.askInt("Введите пункт меню : ", 7);
-            switch (answer) {
-                case ADD:
-                    StartUI.createItem(input, tracker);
-                    break;
-                case SHOW:
-                    StartUI.showAllItems(input, tracker);
-                    break;
-                case EDIT:
-                    StartUI.editItem(input, tracker);
-                    break;
-                case DEL:
-                    StartUI.deleteItem(input, tracker);
-                    break;
-                case FINDID:
-                    StartUI.findItemById(input, tracker);
-                    break;
-                case FINDNAME:
-                    StartUI.findItemsByName(input, tracker);
-                    break;
-                case EXIT:
-                    exit = true;
-                    break;
-                default:
-                    System.out.println("Повторите ввод.");
-            }
+    public void init(Input input, Tracker tracker, UserAction[] actions) {
+        boolean run = true;
+        while (run) {
+            this.showMenu(actions);
+            int select = input.askInt("Введите пункт меню : ", 7);
+            UserAction action = actions[select];
+            run = action.execute(input, tracker);
         }
     }
 
-    private void showMenu() {
+    private void showMenu(UserAction[] actions) {
         System.out.println("Меню.");
-        System.out.println("0. Добавить новую заявку");
-        System.out.println("1. Показать все заявки");
-        System.out.println("2. Редактировать заявку");
-        System.out.println("3. Удалить заявку");
-        System.out.println("4. Найти заявку по ID");
-        System.out.println("5. Найти заявки по названию");
-        System.out.println("6. Выход");
-    }
-
-    public static void createItem(Input input, Tracker tracker) {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = input.askStr("Введите имя заявки :");
-        String desc = input.askStr("Введите описание заявки :");
-        Item item = new Item(name, desc);
-        if (tracker.add(item) != null) {
-            System.out.println("--------- Новая заявка с getId : " + item.getId() + "-----------");
-        } else {
-            System.out.println("--------- База переполнена! -----------");
-        }
-
-    }
-
-    public static void showAllItems(Input input, Tracker tracker) {
-        System.out.println("------------------- Заявки ------------------------");
-        for (Item iterator : tracker.findAll()) {
-            System.out.println("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
-                    + iterator.getDesc());
-        }
-        System.out.println("---------------------------------------------------");
-    }
-
-    public static void editItem(Input input, Tracker tracker) {
-        System.out.println("-------------- Редактирование заявки --------------");
-        String id = input.askStr("Введите ID редактируемой заявки :");
-        String name = input.askStr("Введите новое название заявки :");
-        String desc = input.askStr("Введите новое описание :");
-        Item item = new Item(name, desc);
-        if (tracker.replace(id, item)) {
-            System.out.println("---------- Заявка успешна изменена-------------");
-        } else {
-            System.out.println("------- Заявка с ID:" + item.getName() + " не найдена-------");
-        }
-
-    }
-
-    public static void deleteItem(Input input, Tracker tracker) {
-        System.out.println("---------------- Удаление заявки ------------------");
-        String id = input.askStr("Введите ID заявки :");
-        if (tracker.delete(id)) {
-            System.out.println("---------Заявка с ID: " + id + " удалена-------");
-            showAllItems(input, tracker);
-        } else {
-            System.out.println("---------- Заявка c ID: " + id + " не найдена----");
+        for (int index = 0; index < actions.length; index++) {
+            System.out.println(index + "." + actions[index].name());
         }
     }
 
-    public static void findItemById(Input input, Tracker tracker) {
-        System.out.println("--------------- Найти заявку по ID ----------------");
-        String id = input.askStr("Введите ID заявки :");
-        Item item = tracker.findById(id);
-        if (item != null) {
-            System.out.println("------------ Заявка: ID" + item.getId() + ", name:  " + item.getName()
-                    + "; desc: " + item.getDesc() + "---------");
-        } else {
-            System.out.println("---------- Заявка c ID: " + id + " не найдена----");
-        }
-
-    }
-
-    public static void findItemsByName(Input input, Tracker tracker) {
-        System.out.println("------------ Найти заявки по названию --------------");
-        String name = input.askStr("Введите имя заявки :");
-        Item[] items = tracker.findByName(name);
-        if (items.length == 0) {
-            System.out.println("---------- Заявки с именем: " + name + " не найдены----");
-        } else {
-            System.out.println("------------------- Заявки ------------------------");
-            for (Item iterator : items) {
-                System.out.println("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
-                        + iterator.getDesc());
-            }
-            System.out.println("---------------------------------------------------");
-        }
-    }
 
     /**
      * Запускт программы.
@@ -149,6 +40,11 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
+        UserAction[] actions = new UserAction[]{new CreateAction(), new ShowAllItemsAction(), new DeleteItemAction(),
+                                                new EditItemAction(), new FindByIdAction(), new FinditemsByNameAction(),
+                                                new ExitAction()};
+        Tracker tracker = new Tracker();
+        Input input = new ValidateInput(new ConsoleInput());
+        new StartUI().init(input, tracker, actions);
     }
 }

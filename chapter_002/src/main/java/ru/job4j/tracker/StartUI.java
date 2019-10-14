@@ -30,22 +30,22 @@ public class StartUI {
             int answer = input.askInt("Введите пункт меню : ", 7);
             switch (answer) {
                 case ADD:
-                    createItem();
+                    StartUI.createItem(input, tracker);
                     break;
                 case SHOW:
-                    showAllItems();
+                    StartUI.showAllItems(input, tracker);
                     break;
                 case EDIT:
-                    editItem();
+                    StartUI.editItem(input, tracker);
                     break;
                 case DEL:
-                    deleteItem();
+                    StartUI.deleteItem(input, tracker);
                     break;
                 case FINDID:
-                    findItemById();
+                    StartUI.findItemById(input, tracker);
                     break;
                 case FINDNAME:
-                    findItemsByName();
+                    StartUI.findItemsByName(input, tracker);
                     break;
                 case EXIT:
                     exit = true;
@@ -67,7 +67,7 @@ public class StartUI {
         System.out.println("6. Выход");
     }
 
-    private void createItem() {
+    public static void createItem(Input input, Tracker tracker) {
         System.out.println("------------ Добавление новой заявки --------------");
         String name = input.askStr("Введите имя заявки :");
         String desc = input.askStr("Введите описание заявки :");
@@ -80,7 +80,7 @@ public class StartUI {
 
     }
 
-    private void showAllItems() {
+    public static void showAllItems(Input input, Tracker tracker) {
         System.out.println("------------------- Заявки ------------------------");
         for (Item iterator : tracker.findAll()) {
             System.out.println("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
@@ -89,7 +89,7 @@ public class StartUI {
         System.out.println("---------------------------------------------------");
     }
 
-    private void editItem() {
+    public static void editItem(Input input, Tracker tracker) {
         System.out.println("-------------- Редактирование заявки --------------");
         String id = input.askStr("Введите ID редактируемой заявки :");
         String name = input.askStr("Введите новое название заявки :");
@@ -103,18 +103,18 @@ public class StartUI {
 
     }
 
-    private void deleteItem() {
+    public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("---------------- Удаление заявки ------------------");
         String id = input.askStr("Введите ID заявки :");
         if (tracker.delete(id)) {
             System.out.println("---------Заявка с ID: " + id + " удалена-------");
-            showAllItems();
+            showAllItems(input, tracker);
         } else {
             System.out.println("---------- Заявка c ID: " + id + " не найдена----");
         }
     }
 
-    private void findItemById() {
+    public static void findItemById(Input input, Tracker tracker) {
         System.out.println("--------------- Найти заявку по ID ----------------");
         String id = input.askStr("Введите ID заявки :");
         Item item = tracker.findById(id);
@@ -127,9 +127,9 @@ public class StartUI {
 
     }
 
-    private void findItemsByName() {
+    public static void findItemsByName(Input input, Tracker tracker) {
         System.out.println("------------ Найти заявки по названию --------------");
-        String name = this.input.askStr("Введите имя заявки :");
+        String name = input.askStr("Введите имя заявки :");
         Item[] items = tracker.findByName(name);
         if (items.length == 0) {
             System.out.println("---------- Заявки с именем: " + name + " не найдены----");

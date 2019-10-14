@@ -2,6 +2,11 @@ package ru.job4j.tracker;
 
 public class EditItemAction implements UserAction {
     @Override
+    public int key() {
+        return 2;
+    }
+
+    @Override
     public String name() {
         return "Редактирование заявки";
     }

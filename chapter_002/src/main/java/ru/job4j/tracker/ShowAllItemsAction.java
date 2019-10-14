@@ -3,6 +3,11 @@ package ru.job4j.tracker;
 public class ShowAllItemsAction implements UserAction {
 
     @Override
+    public int key() {
+        return 1;
+    }
+
+    @Override
     public String name() {
         return  "Вывод заявок";
     }

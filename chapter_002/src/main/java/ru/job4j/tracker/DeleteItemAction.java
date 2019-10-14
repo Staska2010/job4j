@@ -2,6 +2,11 @@ package ru.job4j.tracker;
 
 public class DeleteItemAction implements UserAction {
     @Override
+    public int key() {
+        return 3;
+    }
+
+    @Override
     public String name() {
         return "Удаление заявки";
     }

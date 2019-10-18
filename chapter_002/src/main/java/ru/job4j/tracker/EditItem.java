@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 public class EditItem extends BaseAction {
-    public EditItem(int key, String name){
+    public EditItem(int key, String name) {
         super(key, name);
     }
 

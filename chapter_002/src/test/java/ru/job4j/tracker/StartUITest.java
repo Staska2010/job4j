@@ -42,7 +42,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test1", "desc1", "6"});
         new StartUI().init(input, tracker, actions);
-        String actual = tracker.findAll()[0].getName();
+        String actual = tracker.findAll().get(0).getName();
         Assert.assertThat(actual, is("test1"));
     }
 
@@ -82,7 +82,7 @@ public class StartUITest {
         tracker.add(item2);
         Input input = new StubInput(new String[]{"3", item3.getId(), "6"});
         new StartUI().init(input, tracker, actions);
-        int actual = tracker.findAll().length;
+        int actual = tracker.findAll().size();
         Assert.assertThat(actual, is(2));
     }
 

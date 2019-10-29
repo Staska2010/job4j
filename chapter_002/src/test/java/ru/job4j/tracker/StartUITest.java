@@ -8,15 +8,18 @@ import ru.job4j.tracker.actions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 
 public class StartUITest {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    UserAction[] actions = new UserAction[]{new CreateAction(), new ShowAllItemsAction(), new EditItemAction(),
+    List<UserAction> actions = new ArrayList<>(Arrays.asList(new UserAction[] {new CreateAction(), new ShowAllItemsAction(), new EditItemAction(),
             new DeleteItemAction(), new FindByIdAction(), new FinditemsByNameAction(),
-            new ExitAction()};
+            new ExitAction()}));
 
     @Before
     public void initializeOut() {
@@ -30,9 +33,9 @@ public class StartUITest {
 
     @Test
     public void whenExit() {
-        StubInput stubInput = new StubInput(new String[]{"0"});
+        StubInput stubInput = new StubInput(Arrays.asList(new String[]{"0"}));
         StubAction stubAction = new StubAction();
-        new StartUI().init(stubInput, new Tracker(), new UserAction[]{stubAction});
+        new StartUI().init(stubInput, new Tracker(), new ArrayList<>(Arrays.asList(new UserAction[]{stubAction})));
         Assert.assertThat(stubAction.call, is(true));
     }
 
@@ -40,7 +43,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[]{"0", "test1", "desc1", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"0", "test1", "desc1", "6"}));
         new StartUI().init(input, tracker, actions);
         String actual = tracker.findAll().get(0).getName();
         Assert.assertThat(actual, is("test1"));
@@ -53,7 +56,7 @@ public class StartUITest {
         Item item2 = new Item("test2", "desc2");
         tracker.add(item1);
         tracker.add(item2);
-        Input input = new StubInput(new String[]{"2", item2.getId(), "test2_replaced", "desc2_replaced", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"2", item2.getId(), "test2_replaced", "desc2_replaced", "6"}));
         new StartUI().init(input, tracker, actions);
         String actual = tracker.findById(item2.getId()).getName();
         Assert.assertThat(actual, is("test2_replaced"));
@@ -66,7 +69,7 @@ public class StartUITest {
         Item item2 = new Item("test2", "desc2");
         tracker.add(item1);
         tracker.add(item2);
-        Input input = new StubInput(new String[]{"3", item2.getId(), "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"3", item2.getId(), "6"}));
         new StartUI().init(input, tracker, actions);
         Item actual = tracker.findById(item2.getId());
         Assert.assertThat(actual, is(nullValue()));
@@ -80,7 +83,7 @@ public class StartUITest {
         Item item3 = new Item("test3", "desc3");
         tracker.add(item1);
         tracker.add(item2);
-        Input input = new StubInput(new String[]{"3", item3.getId(), "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"3", item3.getId(), "6"}));
         new StartUI().init(input, tracker, actions);
         int actual = tracker.findAll().size();
         Assert.assertThat(actual, is(2));
@@ -94,7 +97,7 @@ public class StartUITest {
         Item item3 = new Item("test2", "desc3");
         tracker.add(item1);
         tracker.add(item2);
-        Input input = new StubInput(new String[]{"1", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"1", "6"}));
         new StartUI().init(input, tracker, actions);
         int i1 = out.toString().indexOf("Выход") + 7;
         int i2 = out.toString().indexOf("Меню", i1);
@@ -126,7 +129,7 @@ public class StartUITest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Input input = new StubInput(new String[]{"4", item2.getId(), "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"4", item2.getId(), "6"}));
         new StartUI().init(input, tracker, actions);
         int i1 = new StringBuilder(out.toString()).indexOf("Заявка:");
         int i2 = new StringBuilder(out.toString()).indexOf("Меню", i1);
@@ -151,7 +154,7 @@ public class StartUITest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Input input = new StubInput(new String[]{"5", "test1", "6"});
+        Input input = new StubInput(Arrays.asList(new String[]{"5", "test1", "6"}));
         new StartUI().init(input, tracker, actions);
         int i1 = new StringBuilder(out.toString()).indexOf("Заявки:");
         int i2 = new StringBuilder(out.toString()).indexOf("Меню", i1);

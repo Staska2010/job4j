@@ -1,10 +1,11 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Tracker {
-    private final ArrayList<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -17,7 +18,7 @@ public class Tracker {
         return String.valueOf(rnd.nextLong() + System.currentTimeMillis());
     }
 
-    public ArrayList<Item> findAll() {
+    public List<Item> findAll() {
         return items;
     }
 
@@ -53,8 +54,8 @@ public class Tracker {
         return result;
     }
 
-    public ArrayList<Item> findByName(String name) {
-        ArrayList<Item> result = new ArrayList<>();
+    public List<Item> findByName(String name) {
+        List<Item> result = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getName().equals(name)) {
                 result.add(items.get(i));

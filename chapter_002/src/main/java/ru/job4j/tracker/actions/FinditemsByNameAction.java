@@ -6,6 +6,7 @@ import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.UserAction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FinditemsByNameAction implements UserAction {
     @Override
@@ -21,7 +22,7 @@ public class FinditemsByNameAction implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String name = input.askStr("Введите имя заявки :");
-        ArrayList<Item> items = tracker.findByName(name);
+        List<Item> items = tracker.findByName(name);
         if (items.size() == 0) {
             System.out.println("Заявки с именем: " + name + " не найдены");
         } else {

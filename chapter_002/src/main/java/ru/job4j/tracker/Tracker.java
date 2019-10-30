@@ -35,9 +35,9 @@ public class Tracker {
 
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId().equals(id)) {
-                items.remove(i);
+        for (Item item : items) {
+            if (item.getId().equals(id)) {
+                items.remove(item);
                 result = true;
             }
         }
@@ -46,9 +46,9 @@ public class Tracker {
 
     public Item findById(String id) {
         Item result = null;
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId().equals(id)) {
-                result = items.get(i);
+        for (Item item : items) {
+            if (item.getId().equals(id)) {
+                result = item;
             }
         }
         return result;
@@ -56,9 +56,9 @@ public class Tracker {
 
     public List<Item> findByName(String name) {
         List<Item> result = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName().equals(name)) {
-                result.add(items.get(i));
+        for (Item item : items) {
+            if (item.getName().equals(name)) {
+                result.add(item);
             }
         }
         return result;

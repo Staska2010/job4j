@@ -9,7 +9,7 @@ import java.util.*;
 public class SortUserTest {
     @Test
     public void whenSortDataSetThenSorted() {
-        Set<User> expected = new HashSet<>(Arrays.asList(new User("User3", 10),
+        Set<User> expected = new LinkedHashSet<>(Arrays.asList(new User("User3", 10),
                                                         new User("User2", 20),
                                                         new User("User1", 30)));
         Set<User> result = SortUser.sort(Arrays.asList(

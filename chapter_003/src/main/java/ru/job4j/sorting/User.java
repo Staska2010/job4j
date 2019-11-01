@@ -11,10 +11,6 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User userCompare) {
-        int result = this.age - userCompare.age;
-        if (result != 0) {
-            return result / Math.abs(result);
-        }
-        return result;
+        return  this.age - userCompare.age;
     }
 }

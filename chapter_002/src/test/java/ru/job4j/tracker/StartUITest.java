@@ -17,9 +17,9 @@ import static org.hamcrest.core.IsNull.nullValue;
 
 public class StartUITest {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    List<UserAction> actions = new ArrayList<>(Arrays.asList(new UserAction[] {new CreateAction(), new ShowAllItemsAction(), new EditItemAction(),
-            new DeleteItemAction(), new FindByIdAction(), new FinditemsByNameAction(),
-            new ExitAction()}));
+    List<UserAction> actions = new ArrayList<>(Arrays.asList(new UserAction[] {new CreateAction(),
+            new ShowAllItemsAction(), new EditItemAction(), new DeleteItemAction(),
+            new FindByIdAction(), new FinditemsByNameAction(), new ExitAction()}));
 
     @Before
     public void initializeOut() {
@@ -69,7 +69,7 @@ public class StartUITest {
         Item item2 = new Item("test2", "desc2");
         tracker.add(item1);
         tracker.add(item2);
-        Input input = new StubInput(Arrays.asList(new String[]{"3", item2.getId(), "6"}));
+        Input input = new StubInput(Arrays.asList("3", item2.getId(), "6"));
         new StartUI().init(input, tracker, actions);
         Item actual = tracker.findById(item2.getId());
         Assert.assertThat(actual, is(nullValue()));

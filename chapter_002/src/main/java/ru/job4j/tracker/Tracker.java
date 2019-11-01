@@ -26,7 +26,8 @@ public class Tracker {
         boolean result = false;
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(id)) {
-                items.set(i, item);
+                items.get(i).setName(item.getName());
+                items.get(i).setDesc(item.getDesc());
                 result = true;
             }
         }
@@ -39,6 +40,7 @@ public class Tracker {
             if (item.getId().equals(id)) {
                 items.remove(item);
                 result = true;
+                break;
             }
         }
         return result;

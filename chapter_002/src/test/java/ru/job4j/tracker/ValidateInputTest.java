@@ -20,7 +20,7 @@ public class ValidateInputTest {
     public void whenUserEnterNonDigitDataThenRepeatInput() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        ValidateInput input = new ValidateInput(new StubInput(new ArrayList<String>(Arrays.asList(new String[]{"asf", "1"})) ));
+        ValidateInput input = new ValidateInput(new StubInput(new ArrayList<String>(Arrays.asList(new String[]{"asf", "1"}))));
         input.askInt("Enter", 2);
         String trackerOutput = out.toString();
         String expected = new StringBuilder("Повторите ввод").append(System.lineSeparator()).toString();

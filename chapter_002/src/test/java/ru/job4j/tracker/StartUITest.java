@@ -99,7 +99,7 @@ public class StartUITest {
         tracker.add(item2);
         Input input = new StubInput(Arrays.asList(new String[]{"1", "6"}));
         new StartUI().init(input, tracker, actions);
-        int i1 = out.toString().indexOf("Выход") + 11;
+        int i1 = out.toString().indexOf("Выход") + 10;
         int i2 = out.toString().indexOf("Меню", i1);
         String trackerOutput = new StringBuilder(out.toString()).substring(i1, i2);
         String expected = new StringBuilder().append(item1.getId())

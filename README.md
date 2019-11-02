@@ -1,7 +1,1 @@
-Объединение зафиксированных изменений V1
-Hello
-at work
-at home
-<h1>Heading</h1>
-В курсе производилась работа с веткамы git
-Создание ветки в IDEA, ветка hotfix_165062
+[![Build Status](https://travis-ci.org/Staska2010/job4j.svg?branch=master)](https://travis-ci.org/Staska2010/job4j)

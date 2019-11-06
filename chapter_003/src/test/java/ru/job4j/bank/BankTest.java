@@ -92,6 +92,4 @@ public class BankTest {
         boolean expected = bank.transferMoney("218756", "R1", "425315", "R2", 200);
         assertThat(expected, is(false));
     }
-
-
 }

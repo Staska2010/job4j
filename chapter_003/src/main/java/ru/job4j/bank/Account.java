@@ -21,4 +21,21 @@ public class Account {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
+
+    public void deposit(BigDecimal amount) {
+        BigDecimal currentAmount = getValue();
+        setValue(currentAmount.add(amount));
+    }
+
+    public boolean withdraw(BigDecimal amount) throws InsufficientFundsException {
+        BigDecimal currentAmount = getValue();
+        boolean result = false;
+        if (currentAmount.compareTo(amount) < 0) {
+            throw new InsufficientFundsException("Not enough funds");
+        } else {
+            setValue(currentAmount.subtract(amount));
+            result = true;
+        }
+        return result;
+    }
 }

@@ -3,13 +3,14 @@ package ru.job4j.bank;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 public class BankTest {
+
     @Test
     public void whenAddUserWithAccountThenThisAccountIsInBank() {
         Bank bank = new Bank();
@@ -34,7 +35,7 @@ public class BankTest {
         bank.addAccountToUser("218756", ivanAccount);
         bank.deleteUser(ivan);
         List<Account> expected = bank.getUserAccounts("218756");
-        assertThat(expected, is(nullValue()));
+        assertThat(expected, is(Collections.emptyList()));
     }
 
     @Test

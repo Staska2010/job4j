@@ -15,11 +15,25 @@ public class Bank {
     }
 
     public void addAccountToUser(String passport, Account account) {
-        users.get(findUserByPassport(passport)).add(account);
+        User user = findUserByPassport(passport);
+        if (user != null) {
+            users.get(user).add(account);
+        }
     }
 
     public void deleteAccountFromUser(String passport, Account account) {
-        users.get(findUserByPassport(passport)).remove(account);
+        User user = findUserByPassport(passport);
+        if (user != null) {
+            int position = users.get(user).indexOf(account);
+            if (position >= 0) {
+                users.get(user).remove(position);
+            }
+        }
+    }
+
+    public List<Account> getUserAccounts(String passport) {
+        User user = findUserByPassport(passport);
+        return (user != null) ? users.get(findUserByPassport(passport)) : new ArrayList<Account>();
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
@@ -28,17 +42,15 @@ public class Bank {
         Account srcAccount = findAccountByRequisite(srcRequisite, getUserAccounts(srcPassport));
         Account destAccount = findAccountByRequisite(destRequisite, getUserAccounts(destPassport));
         if ((srcAccount != null) && (destAccount != null)) {
-            if (srcAccount.getValue().subtract(BigDecimal.valueOf(amount)).intValue() >= 0) {
-                destAccount.setValue(destAccount.getValue().add(BigDecimal.valueOf(amount)));
-                srcAccount.setValue(srcAccount.getValue().subtract(BigDecimal.valueOf(amount)));
+            try {
+                srcAccount.withdraw(BigDecimal.valueOf(amount));
+                destAccount.deposit(BigDecimal.valueOf(amount));
                 result = true;
+            } catch (InsufficientFundsException ex) {
+                ex.printStackTrace();
             }
         }
         return result;
-    }
-
-    public List<Account> getUserAccounts(String passport) {
-        return users.get(findUserByPassport(passport));
     }
 
     private User findUserByPassport(String passport) {

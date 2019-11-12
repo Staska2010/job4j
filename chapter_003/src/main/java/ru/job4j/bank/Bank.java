@@ -42,12 +42,9 @@ public class Bank {
         Account srcAccount = findAccountByRequisite(srcRequisite, getUserAccounts(srcPassport));
         Account destAccount = findAccountByRequisite(destRequisite, getUserAccounts(destPassport));
         if ((srcAccount != null) && (destAccount != null)) {
-            try {
-                srcAccount.withdraw(BigDecimal.valueOf(amount));
+            if (srcAccount.withdraw(BigDecimal.valueOf(amount))) {
                 destAccount.deposit(BigDecimal.valueOf(amount));
                 result = true;
-            } catch (InsufficientFundsException ex) {
-                ex.printStackTrace();
             }
         }
         return result;

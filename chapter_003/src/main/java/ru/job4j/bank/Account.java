@@ -27,12 +27,10 @@ public class Account {
         setValue(currentAmount.add(amount));
     }
 
-    public boolean withdraw(BigDecimal amount) throws InsufficientFundsException {
+    public boolean withdraw(BigDecimal amount) {
         BigDecimal currentAmount = getValue();
         boolean result = false;
-        if (currentAmount.compareTo(amount) < 0) {
-            throw new InsufficientFundsException("Not enough funds");
-        } else {
+        if (currentAmount.compareTo(amount) >= 0) {
             setValue(currentAmount.subtract(amount));
             result = true;
         }

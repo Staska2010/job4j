@@ -5,6 +5,8 @@ import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.UserAction;
 
+import java.util.function.Consumer;
+
 public class CreateAction implements UserAction {
     @Override
     public int key() {
@@ -13,18 +15,18 @@ public class CreateAction implements UserAction {
 
     @Override
     public String name() {
-        return "Добавление новой заявки";
+        return this.key() + ". " + "Добавление новой заявки";
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String name = input.askStr("Введите имя заявки :");
         String desc = input.askStr("Введите описание заявки :");
         Item item = new Item(name, desc);
         if (tracker.add(item) != null) {
-            System.out.println(" Новая заявка с getId: " + item.getId());
+            output.accept(" Новая заявка с getId: " + item.getId());
         } else {
-            System.out.println("База переполнена!");
+            output.accept("База переполнена!");
         }
         return true;
     }

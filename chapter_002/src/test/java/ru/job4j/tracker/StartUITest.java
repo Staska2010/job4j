@@ -32,7 +32,8 @@ public class StartUITest {
     public void whenExit() {
         StubInput stubInput = new StubInput(Arrays.asList(new String[]{"0"}));
         StubAction stubAction = new StubAction();
-        new StartUI().init(stubInput, new Tracker(), new ArrayList<>(Arrays.asList(new UserAction[]{stubAction})));
+        new StartUI(System.out::println).init(stubInput, new Tracker(),
+                new ArrayList<>(Arrays.asList(new UserAction[]{stubAction})));
         Assert.assertThat(stubAction.call, is(true));
     }
 
@@ -41,7 +42,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(Arrays.asList(new String[]{"0", "test1", "desc1", "6"}));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         String actual = tracker.findAll().get(0).getName();
         Assert.assertThat(actual, is("test1"));
     }
@@ -54,7 +55,7 @@ public class StartUITest {
         tracker.add(item1);
         tracker.add(item2);
         Input input = new StubInput(Arrays.asList(new String[]{"2", item2.getId(), "test2_replaced", "desc2_replaced", "6"}));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         String actual = tracker.findById(item2.getId()).getName();
         Assert.assertThat(actual, is("test2_replaced"));
     }
@@ -67,7 +68,7 @@ public class StartUITest {
         tracker.add(item1);
         tracker.add(item2);
         Input input = new StubInput(Arrays.asList("3", item2.getId(), "6"));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         Item actual = tracker.findById(item2.getId());
         Assert.assertThat(actual, is(nullValue()));
     }
@@ -81,7 +82,7 @@ public class StartUITest {
         tracker.add(item1);
         tracker.add(item2);
         Input input = new StubInput(Arrays.asList(new String[]{"3", item3.getId(), "6"}));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         int actual = tracker.findAll().size();
         Assert.assertThat(actual, is(2));
     }
@@ -95,7 +96,7 @@ public class StartUITest {
         tracker.add(item1);
         tracker.add(item2);
         Input input = new StubInput(Arrays.asList(new String[]{"1", "6"}));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         int i1 = out.toString().indexOf("Выход") + 10;
         int i2 = out.toString().indexOf("Меню", i1);
         String trackerOutput = new StringBuilder(out.toString()).substring(i1, i2);
@@ -126,7 +127,7 @@ public class StartUITest {
         tracker.add(item2);
         tracker.add(item3);
         Input input = new StubInput(Arrays.asList(new String[]{"4", item2.getId(), "6"}));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         int i1 = new StringBuilder(out.toString()).indexOf("Заявка:");
         int i2 = new StringBuilder(out.toString()).indexOf("Меню", i1);
         String trackerOutput = new StringBuilder(out.toString()).substring(i1, i2);
@@ -151,7 +152,7 @@ public class StartUITest {
         tracker.add(item2);
         tracker.add(item3);
         Input input = new StubInput(Arrays.asList(new String[]{"5", "test1", "6"}));
-        new StartUI().init(input, tracker, actions);
+        new StartUI(System.out::println).init(input, tracker, actions);
         int i1 = new StringBuilder(out.toString()).indexOf("Заявки:");
         int i2 = new StringBuilder(out.toString()).indexOf("Меню", i1);
         String trackerOutput = new StringBuilder(out.toString()).substring(i1, i2);

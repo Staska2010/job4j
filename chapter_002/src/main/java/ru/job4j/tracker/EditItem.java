@@ -1,20 +1,22 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 public class EditItem extends BaseAction {
     public EditItem(int key, String name) {
         super(key, name);
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String id = input.askStr("Введите ID редактируемой заявки :");
         String name = input.askStr("Введите новое название заявки :");
         String desc = input.askStr("Введите новое описание :");
         Item item = new Item(name, desc);
         if (tracker.replace(id, item)) {
-            System.out.println("Заявка успешна изменена");
+            output.accept("Заявка успешна изменена");
         } else {
-            System.out.println("Заявка с ID:" + item.getName() + " не найдена");
+            output.accept("Заявка с ID:" + item.getName() + " не найдена");
         }
         return true;
     }

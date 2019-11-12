@@ -7,6 +7,7 @@ import ru.job4j.tracker.UserAction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class FinditemsByNameAction implements UserAction {
     @Override
@@ -16,19 +17,19 @@ public class FinditemsByNameAction implements UserAction {
 
     @Override
     public String name() {
-        return "Найти заявки по названию";
+        return this.key() + ". " + "Найти заявки по названию";
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String name = input.askStr("Введите имя заявки :");
         List<Item> items = tracker.findByName(name);
         if (items.size() == 0) {
-            System.out.println("Заявки с именем: " + name + " не найдены");
+            output.accept("Заявки с именем: " + name + " не найдены");
         } else {
-            System.out.println("Заявки:");
+            output.accept("Заявки:");
             for (Item iterator : items) {
-                System.out.println("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
+                output.accept("ID: " + iterator.getId() + "; name: " + iterator.getName() + "; desc: "
                         + iterator.getDesc());
             }
         }

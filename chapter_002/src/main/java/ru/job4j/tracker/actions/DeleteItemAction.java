@@ -4,6 +4,8 @@ import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.UserAction;
 
+import java.util.function.Consumer;
+
 public class DeleteItemAction implements UserAction {
     @Override
     public int key() {
@@ -12,17 +14,17 @@ public class DeleteItemAction implements UserAction {
 
     @Override
     public String name() {
-        return "Удаление заявки";
+        return this.key() + ". " + "Удаление заявки";
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String id = input.askStr("Введите ID заявки :");
         if (tracker.delete(id)) {
-            System.out.println("Заявка с ID: " + id + " удалена");
-            new ShowAllItemsAction().execute(input, tracker);
+            output.accept("Заявка с ID: " + id + " удалена");
+            new ShowAllItemsAction().execute(input, tracker, System.out::println);
         } else {
-            System.out.println("Заявка c ID: " + id + " не найдена");
+            output.accept("Заявка c ID: " + id + " не найдена");
         }
         return true;
     }

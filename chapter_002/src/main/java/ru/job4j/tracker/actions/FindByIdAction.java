@@ -5,6 +5,8 @@ import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.UserAction;
 
+import java.util.function.Consumer;
+
 public class FindByIdAction implements UserAction {
     @Override
     public int key() {
@@ -13,18 +15,18 @@ public class FindByIdAction implements UserAction {
 
     @Override
     public String name() {
-        return "Найти заявку по ID";
+        return this.key() + ". " + "Найти заявку по ID";
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String id = input.askStr("Введите ID заявки :");
         Item item = tracker.findById(id);
         if (item != null) {
-            System.out.println("Заявка: ID" + item.getId() + ", name:  " + item.getName()
+            output.accept("Заявка: ID" + item.getId() + ", name:  " + item.getName()
                     + "; desc: " + item.getDesc());
         } else {
-            System.out.println("Заявка c ID: " + id + " не найдена");
+            output.accept("Заявка c ID: " + id + " не найдена");
         }
         return true;
     }

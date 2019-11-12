@@ -6,22 +6,19 @@ import ru.job4j.tracker.UserAction;
 
 import java.util.function.Consumer;
 
-public class StubAction implements UserAction {
-    public boolean call = false;
-
+public class ExitAction implements UserAction {
     @Override
     public int key() {
-        return 0;
+        return 6;
     }
 
     @Override
     public String name() {
-        return "StubAction";
+        return this.key() + ". " + "Выход";
     }
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-        call = true;
         return false;
     }
 }

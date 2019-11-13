@@ -6,7 +6,7 @@ import static org.hamcrest.core.Is.is;
 
 public class DepartmentStoreTest {
     @Test
-    public void whenSortingInAscendingModeThenSorted(){
+    public void whenSortingInAscendingModeThenSorted() {
         String[] input = {
                 "K1\\SK1",
                 "K1\\SK2",
@@ -32,7 +32,7 @@ public class DepartmentStoreTest {
     }
 
     @Test
-    public void whenSortingInDescendingModeThenSorted(){
+    public void whenSortingInDescendingModeThenSorted() {
         String[] input = {
                 "K1\\SK1",
                 "K1\\SK2",

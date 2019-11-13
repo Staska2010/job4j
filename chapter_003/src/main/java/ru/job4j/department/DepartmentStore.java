@@ -23,7 +23,7 @@ public class DepartmentStore {
             Pattern pattern = Pattern.compile("\\\\");
             List<String> splittedString = new ArrayList<>(Arrays.asList(pattern.split(iterator)));
             StringBuilder chain = new StringBuilder();
-            for(String i : splittedString) {
+            for (String i : splittedString) {
                 chain.append(i);
                 if (!fixedStore.contains(chain.toString())) {
                     fixedStore.add(chain.toString());

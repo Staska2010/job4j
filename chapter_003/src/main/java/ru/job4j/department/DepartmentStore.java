@@ -55,7 +55,7 @@ public class DepartmentStore {
     public static String[] descendingSort(String[] depts) {
         String[] checkedString = parseDept(depts);
         Arrays.sort(checkedString, (left, right) -> {
-            int endPoint = (left.length() - right.length()) >= 0 ? right.length() : left.length();
+            int endPoint = Math.min(left.length(), right.length());
             boolean charsEquals;
             int position = 0;
             do {

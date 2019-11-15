@@ -35,7 +35,7 @@ public class Bank {
         User user = findUserByPassport(passport);
         return (user != null) ?
                 users.get(user)
-                : new ArrayList<Account>();
+                : null;
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,

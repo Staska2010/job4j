@@ -33,7 +33,9 @@ public class Bank {
 
     public List<Account> getUserAccounts(String passport) {
         User user = findUserByPassport(passport);
-        return (user != null) ? users.get(findUserByPassport(passport)) : new ArrayList<Account>();
+        return (user != null) ?
+                users.get(user)
+                : new ArrayList<Account>();
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
@@ -51,24 +53,16 @@ public class Bank {
     }
 
     private User findUserByPassport(String passport) {
-        User result = null;
-        for (User iterator : users.keySet()) {
-            if (iterator.getPassport().equals(passport)) {
-                result = iterator;
-                break;
-            }
-        }
+        User result = users.keySet().stream()
+                .filter(s -> s.getPassport().equals(passport))
+                .findAny().orElse(null);
         return result;
     }
 
     private Account findAccountByRequisite(String requisite, List<Account> accounts) {
-        Account result = null;
-        for (Account iterator : accounts) {
-            if (iterator.getRequisites().equals(requisite)) {
-                result = iterator;
-                break;
-            }
-        }
+        Account result = accounts.stream()
+                .filter(s -> s.getRequisites().equals(requisite))
+                .findFirst().orElse(null);
         return result;
     }
 }

@@ -18,7 +18,7 @@ public class UserConvertTest {
         User user1 = new User(1, "name1", "city1");
         User user2 = new User(2, "name2", "city2");
         User user3 = new User(3, "name3", "city3");
-        users.addAll(Arrays.asList(user1, user2, user3));
+        users.addAll(List.of(user1, user2, user3));
         HashMap<Integer, User> result = converter.process(users);
         HashMap<Integer, User> expected = new HashMap<>();
         expected.put(1, user1);

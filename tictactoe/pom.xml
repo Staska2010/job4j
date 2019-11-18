@@ -8,5 +8,13 @@
         <version>3.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>chapter_004</artifactId>
+    <artifactId>tictactoe</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>12</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>

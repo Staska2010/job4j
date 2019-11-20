@@ -1,4 +1,4 @@
-package job4j.tictactoe;
+package ru.job4j.tictactoe;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -39,8 +39,8 @@ public class Logic3T {
             isGorisontalFilled = isGorisontalFilled || fillBy(predicate, index, 0, 0, 1);
             isVerticalFilled = isVerticalFilled || fillBy(predicate, 0, index, 1, 0);
         }
-        return isVerticalFilled || isGorisontalFilled ||  fillBy(predicate, 0, 0, 1, 1) ||
-                fillBy(predicate, table.length - 1, 0, -1, 1);
+        return isVerticalFilled || isGorisontalFilled ||  fillBy(predicate, 0, 0, 1, 1)
+                || fillBy(predicate, table.length - 1, 0, -1, 1);
     }
 
     public boolean hasGap() {

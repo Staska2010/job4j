@@ -33,8 +33,8 @@ public class Bank {
 
     public List<Account> getUserAccounts(String passport) {
         User user = findUserByPassport(passport);
-        return (user != null) ?
-                users.get(user)
+        return (user != null)
+                ? users.get(user)
                 : null;
     }
 

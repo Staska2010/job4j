@@ -15,6 +15,7 @@
         <module>chapter_004</module>
         <module>puzzle</module>
         <module>tictactoe</module>
+        <module>chapter_005</module>
     </modules>
 
     <properties>

@@ -12,22 +12,29 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void add(T model) {
-        if (endPointer >= array.length - 1) {
+        if (endPointer >= array.length) {
           throw new ArrayIndexOutOfBoundsException();
         } else {
             array[endPointer++] = model;
         }
     }
 
-    public void set(int index, T model) {
-        array[index] = model;
+    public boolean set(int index, T model) {
+        boolean result = false;
+        if (index <= array.length - 1) {
+            array[index] = model;
+            result = true;
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return result;
     }
 
     public void remove(int index) {
-        for (int i = index; i <= endPointer; i++) {
+        for (int i = index; i < endPointer - 1; i++) {
             array[i] = array[i + 1];
         }
-        array[endPointer--] = null;
+        array[--endPointer] = null;
     }
 
     public T get(int index) {

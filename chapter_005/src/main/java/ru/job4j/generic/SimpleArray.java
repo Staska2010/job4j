@@ -30,6 +30,10 @@ public class SimpleArray<T> implements Iterable<T> {
         return result;
     }
 
+    public int getLength() {
+        return endPointer;
+    }
+
     public void remove(int index) {
         for (int i = index; i < endPointer - 1; i++) {
             array[i] = array[i + 1];

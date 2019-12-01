@@ -13,28 +13,22 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public void add(T model) {
         if (endPointer >= array.length) {
-          throw new ArrayIndexOutOfBoundsException();
-        } else {
-            array[endPointer++] = model;
+            throw new ArrayIndexOutOfBoundsException();
         }
+        array[endPointer++] = model;
     }
 
     public boolean set(int index, T model) {
-        boolean result = false;
-        if (index <= array.length - 1) {
-            array[index] = model;
-            result = true;
-        } else {
+        if (index > array.length - 1) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        return result;
+        array[index] = model;
+        return true;
     }
 
     public void remove(int index) {
-        for (int i = index; i < endPointer - 1; i++) {
-            array[i] = array[i + 1];
-        }
-        array[--endPointer] = null;
+        System.arraycopy(array, index + 1, array, index, --endPointer - index);
+        array[endPointer] = null;
     }
 
     public T get(int index) {

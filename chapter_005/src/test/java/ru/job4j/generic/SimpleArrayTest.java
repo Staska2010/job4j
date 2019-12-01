@@ -12,13 +12,13 @@ import static org.junit.Assert.assertThat;
 public class SimpleArrayTest {
     private SimpleArray<Integer> sa;
 
-     @Before
-     public void init() {
-         sa = new SimpleArray<>(3);
-         sa.add(1);
-         sa.add(2);
-         sa.add(3);
-     }
+    @Before
+    public void init() {
+        sa = new SimpleArray<>(3);
+        sa.add(1);
+        sa.add(2);
+        sa.add(3);
+    }
 
     @Test
     public void whenAddNewModels() {

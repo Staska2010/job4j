@@ -5,7 +5,6 @@ import java.util.Iterator;
 public class SimpleArray<T> implements Iterable<T> {
     private Object[] array;
     private int endPointer = 0;
-    private int itCursor = 0;
 
     public SimpleArray(int size) {
         array = new Object[size];
@@ -19,7 +18,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public boolean set(int index, T model) {
-        if (index > array.length - 1) {
+        if (index < 0 || index > endPointer - 1) {
             throw new ArrayIndexOutOfBoundsException();
         }
         array[index] = model;
@@ -38,6 +37,7 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+            private int itCursor = 0;
             @Override
             public boolean hasNext() {
                 return itCursor < endPointer;

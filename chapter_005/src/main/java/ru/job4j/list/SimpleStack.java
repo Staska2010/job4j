@@ -19,6 +19,7 @@ public class SimpleStack<E> {
 
     /**
      * extract value from stack
+     *
      * @return E type, stored in stack
      */
 
@@ -30,5 +31,9 @@ public class SimpleStack<E> {
         }
         it.remove();
         return result;
+    }
+
+    public boolean isEmpty() {
+        return stack.listLength == 0 ? true : false;
     }
 }

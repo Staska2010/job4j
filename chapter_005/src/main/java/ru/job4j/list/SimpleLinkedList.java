@@ -10,8 +10,8 @@ import java.util.NoSuchElementException;
  */
 public class SimpleLinkedList<E> implements Iterable {
     int listLength = 0;
-    Node<E> head = null;
-    Node<E> tail = null;
+    private Node<E> head = null;
+    private Node<E> tail = null;
     private int modCount = 0;
 
     /**
@@ -56,14 +56,17 @@ public class SimpleLinkedList<E> implements Iterable {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            private Node<E> current = head;
+            private Node<E> currentNode = head;
+            private Node<E> previousNode = null;
+            private Node<E> tempNode = null;
             private int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
                 checkForComodification();
-                return current != null;
+                return currentNode != null;
             }
+
 
             @Override
             public E next() {
@@ -71,9 +74,26 @@ public class SimpleLinkedList<E> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                result = current.data;
-                current = current.next;
+                result = currentNode.data;
+                tempNode = previousNode;
+                previousNode = currentNode;
+                currentNode = currentNode.next;
                 return result;
+            }
+
+            @Override
+            public void remove() {
+                if (head == null) {
+                    throw new NoSuchElementException();
+                }
+                checkForComodification();
+                if (tempNode == null) {
+                    head = previousNode.next;
+                } else {
+                    tempNode.next = previousNode.next;
+                    tail = tempNode;
+                }
+                listLength--;
             }
 
             /**

@@ -20,10 +20,8 @@ public class SimpleStackTest {
     public void whenPush1And2ThenPop2And1() {
         st.push(1);
         st.push(2);
-        Integer result = st.pop();
-        assertThat(result, is(2));
-        result = st.pop();
-        assertThat(result, is(1));
+        assertThat(st.pop(), is(2));
+        assertThat(st.pop(), is(1));
     }
 
     @Test(expected = NoSuchElementException.class)

@@ -1,9 +1,10 @@
 package ru.job4j.list;
+
+import java.util.NoSuchElementException;
+
 /**
  * Simple Stack Class, based on Linked List
  */
-
-import java.util.Iterator;
 
 public class SimpleStack<E> {
     private SimpleLinkedList<E> stack = new SimpleLinkedList<>();
@@ -19,16 +20,16 @@ public class SimpleStack<E> {
 
     /**
      * extract value from stack
+     *
      * @return E type, stored in stack
      */
 
     public E pop() {
-        E result = null;
-        Iterator<E> it = stack.iterator();
-        for (int i = 0; i < stack.listLength; i++) {
-            result = it.next();
+        if (stack.listLength == 0) {
+            throw new NoSuchElementException();
         }
-        it.remove();
+        E result = stack.get(stack.listLength - 1);
+        stack.removeLast();
         return result;
     }
 }

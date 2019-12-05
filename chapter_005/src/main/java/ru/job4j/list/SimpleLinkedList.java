@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 
 /**
  * Linked List implementaion
- *
  */
 public class SimpleLinkedList<E> implements Iterable {
     int listLength = 0;
@@ -16,6 +15,7 @@ public class SimpleLinkedList<E> implements Iterable {
 
     /**
      * Add node to list
+     *
      * @param data - data to store in node
      * @return true if everything is Ok
      */
@@ -35,7 +35,8 @@ public class SimpleLinkedList<E> implements Iterable {
 
     /**
      * Data retrieving from node at index position
-     * @param index  - index of node for data retrieving
+     *
+     * @param index - index of node for data retrieving
      * @return data
      */
     public E get(int index) {
@@ -49,8 +50,27 @@ public class SimpleLinkedList<E> implements Iterable {
         return searchedNode.data;
     }
 
+    public void removeLast() {
+        Node<E> tmp = head;
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        if (tail == head) {
+            tail = null;
+            head = null;
+        } else {
+            for (int i = 0; i < listLength - 1; i++) {
+                tmp = tmp.next;
+            }
+            tail = tmp;
+            tail.next = null;
+        }
+        listLength--;
+    }
+
     /**
      * Implementation of Iterator for linked list
+     *
      * @return
      */
     @Override

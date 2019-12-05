@@ -10,7 +10,6 @@ public class SimpleSet<E>  implements Iterable<E> {
         if (ensureUnique(value)) {
             sl.add(value);
         }
-
     }
 
     private boolean ensureUnique(E value) {

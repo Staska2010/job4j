@@ -16,8 +16,9 @@ public class SimpleSetTest {
     }
 
     @Test
-    public void run() {
+    public void whenAddElementsTheyAreUnique() {
         ss.add(1);
+        ss.add(2);
         ss.add(2);
         ss.add(3);
         ss.add(3);
@@ -25,5 +26,6 @@ public class SimpleSetTest {
         assertThat(ssIt.next(), is(1));
         assertThat(ssIt.next(), is(2));
         assertThat(ssIt.next(), is(3));
+        assertThat(ssIt.hasNext(), is(false));
     }
 }

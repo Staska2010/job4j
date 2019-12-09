@@ -28,8 +28,6 @@ public class SimpleStack<E> {
         if (stack.listLength == 0) {
             throw new NoSuchElementException();
         }
-        E result = stack.get(stack.listLength - 1);
-        stack.removeLast();
-        return result;
+        return stack.removeLast();
     }
 }

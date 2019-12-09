@@ -50,8 +50,8 @@ public class SimpleLinkedList<E> implements Iterable {
         return searchedNode.data;
     }
 
-    public void removeLast() {
-        Node<E> tmp = head;
+    public E removeLast() {
+        E result = tail.data;
         if (head == null) {
             throw new NoSuchElementException();
         }
@@ -59,13 +59,14 @@ public class SimpleLinkedList<E> implements Iterable {
             tail = null;
             head = null;
         } else {
-            for (int i = 0; i < listLength - 1; i++) {
-                tmp = tmp.next;
+            tail = head;
+            for (int i = 0; i < listLength - 2; i++) {
+                tail = tail.next;
             }
-            tail = tmp;
             tail.next = null;
         }
         listLength--;
+        return result;
     }
 
     /**

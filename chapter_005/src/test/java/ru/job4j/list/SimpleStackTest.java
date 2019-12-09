@@ -24,6 +24,18 @@ public class SimpleStackTest {
         assertThat(st.pop(), is(1));
     }
 
+    @Test
+    public void whenPush1And2And3And4ThenPop4And3And2And1() {
+        st.push(1);
+        st.push(2);
+        st.push(3);
+        st.push(4);
+        assertThat(st.pop(), is(4));
+        assertThat(st.pop(), is(3));
+        assertThat(st.pop(), is(2));
+        assertThat(st.pop(), is(1));
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void whenTryToPopFromEmptyStackThenException() {
         st.push(1);

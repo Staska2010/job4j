@@ -16,7 +16,7 @@ public class SimpleSet<E>  implements Iterable<E> {
         boolean result = true;
         Iterator<E> it = sl.iterator();
         while (it.hasNext()) {
-            if (it.next() == value) {
+            if (it.next().equals(value)) {
                 result = false;
             }
         }

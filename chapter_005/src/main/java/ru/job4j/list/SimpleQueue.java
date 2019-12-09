@@ -9,11 +9,10 @@ public class SimpleQueue<E> {
     }
 
     public E poll() {
-        E result;
-        swap(queue, swapped);
-        result = swapped.pop();
-        swap(swapped, queue);
-        return result;
+        if (swapped.isEmpty()) {
+            swap(queue, swapped);
+        }
+        return swapped.pop();
     }
 
     private void swap(SimpleStack<E> out, SimpleStack<E> in) {

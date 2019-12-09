@@ -10,6 +10,7 @@ import static org.junit.Assert.assertThat;
 
 public class SimpleQueueTest {
     SimpleQueue<Integer> queue;
+
     @Before
     public void init() {
         queue = new SimpleQueue<>();
@@ -23,6 +24,20 @@ public class SimpleQueueTest {
         assertThat(queue.poll(), is(1));
         assertThat(queue.poll(), is(2));
         assertThat(queue.poll(), is(3));
+    }
+
+    @Test
+    public void whenPushedInRandomOrderThenCorrectlyRetrieved() {
+        queue.push(1);
+        queue.push(2);
+        assertThat(queue.poll(), is(1));
+        queue.push(3);
+        queue.push(4);
+        assertThat(queue.poll(), is(2));
+        assertThat(queue.poll(), is(3));
+        queue.push(5);
+        assertThat(queue.poll(), is(4));
+        assertThat(queue.poll(), is(5));
     }
 
     @Test(expected = NoSuchElementException.class)

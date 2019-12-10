@@ -6,16 +6,16 @@ import java.util.NoSuchElementException;
 
 /**
  * Linked List implementaion
- *
  */
 public class SimpleLinkedList<E> implements Iterable {
     int listLength = 0;
-    Node<E> head = null;
-    Node<E> tail = null;
+    private Node<E> head = null;
+    private Node<E> tail = null;
     private int modCount = 0;
 
     /**
      * Add node to list
+     *
      * @param data - data to store in node
      * @return true if everything is Ok
      */
@@ -35,7 +35,8 @@ public class SimpleLinkedList<E> implements Iterable {
 
     /**
      * Data retrieving from node at index position
-     * @param index  - index of node for data retrieving
+     *
+     * @param index - index of node for data retrieving
      * @return data
      */
     public E get(int index) {
@@ -49,21 +50,44 @@ public class SimpleLinkedList<E> implements Iterable {
         return searchedNode.data;
     }
 
+    public E removeLast() {
+        E result = tail.data;
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        if (tail == head) {
+            tail = null;
+            head = null;
+        } else {
+            tail = head;
+            for (int i = 0; i < listLength - 2; i++) {
+                tail = tail.next;
+            }
+            tail.next = null;
+        }
+        listLength--;
+        return result;
+    }
+
     /**
      * Implementation of Iterator for linked list
+     *
      * @return
      */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            private Node<E> current = head;
+            private Node<E> currentNode = head;
+            private Node<E> previousNode = null;
+            private Node<E> tempNode = null;
             private int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
                 checkForComodification();
-                return current != null;
+                return currentNode != null;
             }
+
 
             @Override
             public E next() {
@@ -71,9 +95,26 @@ public class SimpleLinkedList<E> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                result = current.data;
-                current = current.next;
+                result = currentNode.data;
+                tempNode = previousNode;
+                previousNode = currentNode;
+                currentNode = currentNode.next;
                 return result;
+            }
+
+            @Override
+            public void remove() {
+                if (head == null) {
+                    throw new NoSuchElementException();
+                }
+                checkForComodification();
+                if (tempNode == null) {
+                    head = previousNode.next;
+                } else {
+                    tempNode.next = previousNode.next;
+                    tail = tempNode;
+                }
+                listLength--;
             }
 
             /**

@@ -30,4 +30,8 @@ public class SimpleStack<E> {
         }
         return stack.removeLast();
     }
+
+    public boolean isEmpty() {
+        return stack.listLength == 0 ? true : false;
+    }
 }

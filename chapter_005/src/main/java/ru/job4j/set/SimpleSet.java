@@ -25,17 +25,6 @@ public class SimpleSet<E>  implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            Iterator<E> lsIt = sl.iterator();
-            @Override
-            public boolean hasNext() {
-                return lsIt.hasNext();
-            }
-
-            @Override
-            public E next() {
-                return lsIt.next();
-            }
-        };
+        return sl.iterator();
     }
 }

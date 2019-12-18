@@ -70,16 +70,11 @@ public class SimpleMap<K, V> implements Iterable {
         if (key != null) {
             int newNodeHash = hash(key);
             int index = getIndex(key, tableLength);
-            if (table[index] == null) {
+            if (table[index] == null || (table[index].hash == newNodeHash) && (table[index].key.equals(key))) {
                 table[index] = new Node<>(newNodeHash, key, value);
                 binCount++;
                 modCount++;
                 return true;
-            } else {
-                if ((table[index].hash == newNodeHash) && (table[index].key.equals(key))) {
-                    // do nothing
-                    return false;
-                }
             }
         }
         return false;
@@ -93,12 +88,10 @@ public class SimpleMap<K, V> implements Iterable {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void tableResize() {
         int newLength = tableLength << 1;
-        int newIndex;
-        Node<K, V>[] resizedTable;
-        resizedTable = (Node<K, V>[]) new Node[newLength];
+        Node<K, V>[] resizedTable = (Node<K, V>[]) new Node[newLength];
         for (int i = 0; i < tableLength; i++) {
             if (table[i] != null) {
-                newIndex = getIndex(table[i].key, newLength);
+                int newIndex = getIndex(table[i].key, newLength);
                 resizedTable[newIndex] = table[i];
             }
         }
@@ -115,7 +108,7 @@ public class SimpleMap<K, V> implements Iterable {
     public V get(K key) {
         if (key != null) {
             int index = getIndex(key, tableLength);
-            if (table[index] != null) {
+            if (table != null && table[index] != null) {
                 return table[index].value;
             }
         }
@@ -132,7 +125,7 @@ public class SimpleMap<K, V> implements Iterable {
     public boolean delete(K key) {
         if (key != null) {
             int index = getIndex(key, tableLength);
-            if (table[index] != null) {
+            if (table != null && table[index] != null) {
                 table[index] = null;
                 tableLength--;
                 return true;

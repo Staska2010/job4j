@@ -27,10 +27,11 @@ public class SimpleMapTest {
 
 
     @Test
-    public void whenPutPairThatExistInMapThenFalse() {
+    public void whenPutPairThatExistInMapThenShouldOverWrite() {
         SimpleMap<String, String> sm = new SimpleMap<>();
         assertThat(sm.insert("10", "First"), is(true));
-        assertThat(sm.insert("10", "Second"), is(false));
+        assertThat(sm.insert("10", "Second"), is(true));
+        assertThat(sm.get("10"), is("Second"));
     }
 
     @Test

@@ -1,6 +1,13 @@
 package ru.job4j.tree;
 
 import java.util.*;
+import java.util.function.Predicate;
+
+/**
+ * Simple structure of Tree
+ *
+ * @author
+ */
 
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     Node<E> root;
@@ -20,14 +27,41 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return false;
     }
 
+    /**
+     * Overrided method - searching for a Node in Tree by its value.
+     *
+     * @param value - target value.
+     * @return - Node with searched value, if it is present.
+     */
     @Override
     public Optional<Node<E>> findBy(E value) {
+        return findByPredicate(x -> x.eqValue(value));
+    }
+
+    /**
+     * Function for determining whether a tree is binary.
+     * If the number of descendants of any node doesn't exceed 2
+     * then tree is binary
+     *
+     * @return true of tree is binary, or false in other cases.
+     */
+    public boolean isBinary() {
+        return !(findByPredicate(x -> x.leaves().size() > 2)).isPresent();
+    }
+
+    /**
+     * Standard method of BSF.
+     *
+     * @param pr - condition of search as a predicate function.
+     * @return Node that satisfies the search condition, Optional type.
+     */
+    private Optional<Node<E>> findByPredicate(Predicate<Node<E>> pr) {
         Optional<Node<E>> rsl = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (el.eqValue(value)) {
+            if (pr.test(el)) {
                 rsl = Optional.of(el);
                 break;
             }

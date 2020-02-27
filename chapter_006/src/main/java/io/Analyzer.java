@@ -29,11 +29,11 @@ public class Analyzer {
         boolean isAvailable = true;
         try (BufferedReader bf = new BufferedReader(new FileReader(source))) {
             while ((line = bf.readLine()) != null) {
-                if ((line.startsWith("400") || line.startsWith("500")) && isAvailable == true) {
+                if ((line.startsWith("400") || line.startsWith("500")) && isAvailable) {
                     sb.append(line.split("\\s")[1]).append("; ");
                     isAvailable = false;
                 }
-                if ((line.startsWith("200") || line.startsWith("300")) && isAvailable == false) {
+                if ((line.startsWith("200") || line.startsWith("300")) && !isAvailable) {
                     sb.append(line.split("\\s")[1]).append(System.lineSeparator());
                     isAvailable = true;
                 }

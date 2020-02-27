@@ -21,7 +21,7 @@ public class AnalyzerTest {
         String logFile = "./data/server.log";
         String targetFile = "./data/target";
         Analyzer an = new Analyzer();
-        an.unavailable(logFile,targetFile);
+        an.unavailable(logFile, targetFile);
         StringJoiner sj = new StringJoiner(System.lineSeparator());
         try (BufferedReader reader = new BufferedReader(new FileReader("./data/target"))) {
             reader.lines().forEach(sj::add);

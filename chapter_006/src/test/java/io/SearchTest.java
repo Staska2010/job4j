@@ -1,6 +1,5 @@
 package io;
 
-<<<<<<< Updated upstream
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +8,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -66,7 +67,7 @@ public class SearchTest {
     @Test
     public void whenSearchTXTExtensionThenGetTwoFiles() {
         Search sc = new Search();
-        List<File> result = sc.files(subDirectoryFirstLevel.getAbsolutePath(), Arrays.asList("txt"));
+        List<File> result = sc.files(subDirectoryFirstLevel.getAbsolutePath(), Collections.singletonList("txt"));
         assertThat(result.size(), is(2));
         assertThat(result.get(0).getName().endsWith(".txt"), is(true));
         assertThat(result.get(1).getName().endsWith(".txt"), is(true));
@@ -75,7 +76,7 @@ public class SearchTest {
     @Test
     public void whenSearchLOGExtensionThenGetThreeFiles() {
         Search sc = new Search();
-        List<File> result = sc.files(subDirectoryFirstLevel.getAbsolutePath(), Arrays.asList("log"));
+        List<File> result = sc.files(subDirectoryFirstLevel.getAbsolutePath(), Collections.singletonList("log"));
         assertThat(result.size(), is(3));
         assertThat(result.get(0).getName().endsWith(".log"), is(true));
         assertThat(result.get(1).getName().endsWith(".log"), is(true));
@@ -92,10 +93,44 @@ public class SearchTest {
     @Test
     public void whenSearchForNotExistingExtensionThenGetNothing() {
         Search sc = new Search();
-        List<File> result = sc.files(subDirectoryFirstLevel.getAbsolutePath(), Arrays.asList("jpg"));
+        List<File> result = sc.files(subDirectoryFirstLevel.getAbsolutePath(), Collections.singletonList("jpg"));
         assertThat(result, is(Collections.emptyList()));
     }
-=======
-public class SearchTest {
->>>>>>> Stashed changes
+
+    @Test
+    public void whenSearchTxtAndLogFilesWithPredicate() {
+        Search sc = new Search();
+        Predicate<File> predicate = x -> Stream.of("log", "txt")
+                                    .anyMatch(ext -> x.getName().endsWith(ext));
+        List<File> result1 = sc.files(subDirectoryFirstLevel.getAbsolutePath(), predicate);
+        assertThat(result1.size(), is(5));
+    }
+
+    @Test
+    public void whenSearchTxtFilesWithPredicate() {
+        Search sc = new Search();
+        Predicate<File> predicate = x -> Stream.of("txt")
+                                        .anyMatch(ext -> x.getName().endsWith(ext));
+        List<File> result1 = sc.files(subDirectoryFirstLevel.getAbsolutePath(), predicate);
+        assertThat(result1.size(), is(2));
+    }
+
+    @Test
+    public void whenChooseAddDirectoriesThenGetTwoItems() {
+        Search sc = new Search();
+        Predicate<File> predicate = File::isDirectory;
+        List<File> result1 = sc.files(subDirectoryFirstLevel.getAbsolutePath(), predicate);
+        result1.forEach(x -> System.out.println(x.getName()));
+        assertThat(result1.size(), is(2));
+    }
+
+    @Test
+    public void whenChooseAddDirectoriesAndTxtFilesThenGetFourItems() {
+        Search sc = new Search();
+        Predicate<File> predicate = x -> x.isDirectory() ||
+                                        Stream.of(".txt").anyMatch(ext -> x.getName().endsWith(ext));
+        List<File> result1 = sc.files(subDirectoryFirstLevel.getAbsolutePath(), predicate);
+        result1.forEach(x -> System.out.println(x.getName()));
+        assertThat(result1.size(), is(4));
+    }
 }
